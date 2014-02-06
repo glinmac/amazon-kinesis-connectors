@@ -155,6 +155,16 @@ public class KinesisConnectorConfiguration {
     public final long CLOUDWATCH_BUFFER_TIME;
     public final int CLOUDWATCH_MAX_QUEUE_SIZE;
 
+
+    public static final String DEFAULT_KINESIS_INITIAL_POSITION_IN_STREAM = "TRIM_HORIZON";
+    public static final String DEFAULT_S3_PATH = "kinesis";
+
+    public static final String PROP_KINESIS_INITIAL_POSITION_IN_STREAM = "initialPositionInStream";
+    public static final String PROP_S3_PATH = "s3Path";
+
+    public final String KINESIS_INITIAL_POSITION_IN_STREAM;
+    public final String S3_PATH;
+
     /**
      * Configure the connector application with any set of properties that are unique to the application. Any
      * unspecified property will be set to a default value.
@@ -227,6 +237,10 @@ public class KinesisConnectorConfiguration {
         CLEANUP_TERMINATED_SHARDS_BEFORE_EXPIRY = getBooleanProperty(
                 PROP_CLEANUP_TERMINATED_SHARDS_BEFORE_EXPIRY,
                 DEFAULT_CLEANUP_TERMINATED_SHARDS_BEFORE_EXPIRY, properties);
+
+        KINESIS_INITIAL_POSITION_IN_STREAM = properties.getProperty(PROP_KINESIS_INITIAL_POSITION_IN_STREAM,
+                DEFAULT_KINESIS_INITIAL_POSITION_IN_STREAM);
+        S3_PATH = properties.getProperty(PROP_S3_PATH, DEFAULT_S3_PATH);
     }
 
     private boolean getBooleanProperty(String property, boolean defaultValue, Properties properties) {
